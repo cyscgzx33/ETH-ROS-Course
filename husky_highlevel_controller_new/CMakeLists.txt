@@ -139,6 +139,7 @@ include_directories(
 add_executable(${PROJECT_NAME}
   src/${PROJECT_NAME}_node.cpp
   src/HuskyHighlevelControllerNew.cpp
+  src/Scan2.cpp
 )
 
 ## Rename C++ executable without prefix
