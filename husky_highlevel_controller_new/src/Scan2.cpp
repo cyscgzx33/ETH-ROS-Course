@@ -22,8 +22,8 @@ namespace husky_highlevel_controller_new {
 
 		scan.ranges.resize(ranges);
 		for (int i = 0; i < ranges; ++i) {
-			//scan.ranges[i] = scan2->ranges[i] > 95.0 ? 95.0 : scan2->ranges[i];
-			scan.ranges[i] = scan2->ranges[i];
+			scan.ranges[i] = scan2->ranges[i] > 30.0 ? 30.0 : scan2->ranges[i];
+			//scan.ranges[i] = scan2->ranges[i];
 			ROS_INFO_STREAM("ROS_INFO_STREAM /Scan2 laser range values (m) :" << scan.ranges[i]);
 		}
 
