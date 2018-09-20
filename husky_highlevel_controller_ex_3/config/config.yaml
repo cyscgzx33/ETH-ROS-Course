@@ -4,3 +4,7 @@ cmd_pub_topic: /cmd_vel
 cmd_pub_queue_size: 1
 visualization_pub_topic: visualization_marker
 visualization_pub_queue_size: 0
+zPosPillar: -0.5
+red_value: 1.0
+green_value: 0.0
+blue_value: 0.0

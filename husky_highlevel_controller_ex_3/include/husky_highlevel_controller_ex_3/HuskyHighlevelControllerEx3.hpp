@@ -33,14 +33,21 @@ namespace husky_highlevel_controller_ex_3 {
 		ros::Subscriber scan_subscriber_;
 		
 
-		// parameter information 
-		// linked to config.yaml
+		/*
+		   parameter information 
+		   linked to config.yaml
+		*/
 		std::string scan_subscriber_topic;
 		std::string cmd_pub_topic;
 		std::string visualization_pub_topic;
 		int scan_subscriber_queue_size;
 		int cmd_pub_queue_size;
 		int visualization_pub_queue_size;
+		float zPosPillar;
+		float red_value;
+		float green_value;
+		float blue_value;
+
 
 		// smallest distance from laser scan
 		float smallest_distance;

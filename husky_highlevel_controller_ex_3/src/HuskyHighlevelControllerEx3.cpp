@@ -9,6 +9,13 @@ HuskyHighlevelControllerEx3::HuskyHighlevelControllerEx3(ros::NodeHandle& nodeHa
   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/scan_subscriber_queue_size", scan_subscriber_queue_size);
   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/cmd_pub_topic", cmd_pub_topic);
    	nodeHandle.getParam("/husky_highlevel_controller_ex_3/cmd_pub_queue_size", cmd_pub_queue_size);
+   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/visualization_pub_queue_size", visualization_pub_queue_size);
+   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/visualization_pub_topic", visualization_pub_topic);
+   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/red_value", red_value);
+   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/green_value", green_value);
+   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/blue_value", blue_value);
+   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/zPosPillar", zPosPillar);
+
  	
  	// definity need to advertise a publisher otherwise it didn't show up at the system
 	scan_subscriber_ = nodeHandle_.subscribe(scan_subscriber_topic, scan_subscriber_queue_size, &HuskyHighlevelControllerEx3::scanCallback, this);
@@ -74,7 +81,7 @@ void HuskyHighlevelControllerEx3::pillar_visualization() {
 	marker.action = visualization_msgs::Marker::ADD;
 	marker.pose.position.x = xPosPillar;
 	marker.pose.position.y = yPosPillar;
-	marker.pose.position.z = -3.3;
+	marker.pose.position.z = zPosPillar;
 	marker.pose.orientation.x = 0.0;
 	marker.pose.orientation.y = 0.0;
 	marker.pose.orientation.z = 0.0;
@@ -83,9 +90,9 @@ void HuskyHighlevelControllerEx3::pillar_visualization() {
 	marker.scale.y = 1;
 	marker.scale.z = 1;
 	marker.color.a = 1.0; // remember to set the alpha
-	marker.color.r = 0.0; 
-	marker.color.g = 1.0; // set it as green
-	marker.color.b = 0.0; 
+	marker.color.r = red_value; 
+	marker.color.g = green_value; 
+	marker.color.b = blue_value; 
 
 	// only implement it when using a MESH_RESOURCE marker type
 	marker.mesh_resource = "package://pr2_description//meshes/base_v0/base.dae";
