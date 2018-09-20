@@ -15,7 +15,7 @@ namespace husky_highlevel_controller_ex_3 {
 		ros::NodeHandle n;
 		ros::Publisher scan_pub;
 		ros::Subscriber scan_sub;
-		
+
 
 		std::string scan_subscriber_topic;
 		int scan_subscriber_queue_size;

@@ -13,13 +13,15 @@ HuskyHighlevelControllerEx3::HuskyHighlevelControllerEx3(ros::NodeHandle& nodeHa
  	// definity need to advertise a publisher otherwise it didn't show up at the system
 	scan_subscriber_ = nodeHandle_.subscribe(scan_subscriber_topic, scan_subscriber_queue_size, &HuskyHighlevelControllerEx3::scanCallback, this);
 	cmd_pub_ = nodeHandle_.advertise<geometry_msgs::Twist>(cmd_pub_topic, cmd_pub_queue_size);
+	pillar_visualization_pub_ = nodeHandle_.advertise<visualization_msgs::Marker>(visualization_pub_topic, visualization_pub_queue_size);
+
 
 	ROS_INFO("Successfully launch node");
     }
 
 
 void HuskyHighlevelControllerEx3::scanCallback(const sensor_msgs::LaserScan &scan_msg) {
-	float smallest_distance = 30;
+	smallest_distance = 30;
 	
 	// number of the elements in ranges array
 	std::vector<float> ranges = scan_msg.ranges;
@@ -48,14 +50,48 @@ void HuskyHighlevelControllerEx3::scanCallback(const sensor_msgs::LaserScan &sca
 	cmd_pub_.publish(vel_msg_);
 
 
+	// call the function pillar_visualization() to visualiza the position of the pillar
+	pillar_visualization();
+
+	// check out the output signals
 	ROS_INFO_STREAM("X position of pillar (m) : " << xPosPillar);
 	ROS_INFO_STREAM("Y position of pillar (m) : " << yPosPillar);
 	ROS_INFO_STREAM("angular position of pillar (rad) : " << phiAnglePillar);
 
-	// check out the output signals
 	ROS_INFO_STREAM("vel_msg_.linear.x : " << vel_msg_.linear.x);
 	ROS_INFO_STREAM("vel_msg_.angular.z : " << vel_msg_.angular.z);
 }
+
+
+void HuskyHighlevelControllerEx3::pillar_visualization() {
+
+	visualization_msgs::Marker marker;
+	marker.header.frame_id = "base_laser";
+	marker.header.stamp = ros::Time();
+	marker.ns = "my_namespace";
+	marker.id = 0;
+	marker.type = visualization_msgs::Marker::SPHERE;
+	marker.action = visualization_msgs::Marker::ADD;
+	marker.pose.position.x = xPosPillar;
+	marker.pose.position.y = yPosPillar;
+	marker.pose.position.z = -3.3;
+	marker.pose.orientation.x = 0.0;
+	marker.pose.orientation.y = 0.0;
+	marker.pose.orientation.z = 0.0;
+	marker.pose.orientation.w = 0.0;
+	marker.scale.x = 1;
+	marker.scale.y = 1;
+	marker.scale.z = 1;
+	marker.color.a = 1.0; // remember to set the alpha
+	marker.color.r = 0.0; 
+	marker.color.g = 1.0; // set it as green
+	marker.color.b = 0.0; 
+
+	// only implement it when using a MESH_RESOURCE marker type
+	marker.mesh_resource = "package://pr2_description//meshes/base_v0/base.dae";
+	pillar_visualization_pub_.publish(marker);
+}
+
 
 HuskyHighlevelControllerEx3::~HuskyHighlevelControllerEx3() {}
 

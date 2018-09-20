@@ -2,3 +2,5 @@ scan_subscriber_topic: /scan
 scan_subscriber_queue_size: 1
 cmd_pub_topic: /cmd_vel
 cmd_pub_queue_size: 1
+visualization_pub_topic: visualization_marker
+visualization_pub_queue_size: 0
