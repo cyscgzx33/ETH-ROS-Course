@@ -8,4 +8,7 @@ ETH ROS exercise solutions &amp; course materials
 - Please follow the package "husky_highlevel_controller_ex_3".
 
 ## Exercise-4
-- Please follow the package "husky_highlevel_controller_ex_3".
+- Please follow the package "husky_highlevel_controller_ex_4".
+
+## Exercise-5
+- Please follow the package "husky_highlevel_controller_ex_5".
