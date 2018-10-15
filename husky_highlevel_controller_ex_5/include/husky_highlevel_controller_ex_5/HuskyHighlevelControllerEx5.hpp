@@ -5,7 +5,10 @@
 #include <geometry_msgs/Twist.h>
 #include <visualization_msgs/Marker.h>
 #include <tf/transform_listener.h>
+#include <std_srvs/SetBool.h>
 #include <string>
+
+
 
 namespace husky_highlevel_controller_ex_5 {
 /*	
@@ -18,8 +21,20 @@ namespace husky_highlevel_controller_ex_5 {
 		*/
 		HuskyHighlevelControllerEx5(ros::NodeHandle& nodeHandle);
 
-		// scanCallback function
+		/* 
+			scanCallback function
+		*/
 		void scanCallback(const sensor_msgs::LaserScan &scan_msg);
+
+		/* 
+			serviceCallback function
+		*/
+		bool serviceCallback(std_srvs::SetBool::Request & request, std_srvs::SetBool::Response & response);
+
+		/* 
+			a function that checks if parameters are read successfully
+		*/
+		bool readParams();
 
 		/*
 			Destructor.			
@@ -31,6 +46,7 @@ namespace husky_highlevel_controller_ex_5 {
 	private:
 		ros::NodeHandle nodeHandle_;
 		ros::Subscriber scan_subscriber_;
+		ros::ServiceServer serviceServer_;
 		
 
 		/*
@@ -48,6 +64,8 @@ namespace husky_highlevel_controller_ex_5 {
 		float green_value;
 		float blue_value;
 
+		// A flag that determines if the Husky can move or not
+		bool start_move;
 
 		// smallest distance from laser scan
 		float smallest_distance;

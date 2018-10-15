@@ -4,6 +4,7 @@ namespace husky_highlevel_controller_ex_5 {
 
 HuskyHighlevelControllerEx5::HuskyHighlevelControllerEx5(ros::NodeHandle& nodeHandle) :
   nodeHandle_(nodeHandle) {
+	
   	// to obtain the params by calling getParam()
   	nodeHandle.getParam("/husky_highlevel_controller_ex_5/scan_subscriber_topic", scan_subscriber_topic);
   	nodeHandle.getParam("/husky_highlevel_controller_ex_5/scan_subscriber_queue_size", scan_subscriber_queue_size);
@@ -16,7 +17,6 @@ HuskyHighlevelControllerEx5::HuskyHighlevelControllerEx5(ros::NodeHandle& nodeHa
    	nodeHandle.getParam("/husky_highlevel_controller_ex_5/blue_value", blue_value);
    	nodeHandle.getParam("/husky_highlevel_controller_ex_5/zPosPillar", zPosPillar);
 
- 	
  	// definity need to advertise a publisher otherwise it didn't show up at the system
 	scan_subscriber_ = nodeHandle_.subscribe(scan_subscriber_topic, scan_subscriber_queue_size, &HuskyHighlevelControllerEx5::scanCallback, this);
 	cmd_pub_ = nodeHandle_.advertise<geometry_msgs::Twist>(cmd_pub_topic, cmd_pub_queue_size);
@@ -24,6 +24,22 @@ HuskyHighlevelControllerEx5::HuskyHighlevelControllerEx5(ros::NodeHandle& nodeHa
 
 
 	ROS_INFO("Successfully launch node");
+}
+
+
+bool HuskyHighlevelControllerEx5::readParams() {
+	if (!nodeHandle_.getParam("/husky_highlevel_controller_ex_5/scan_subscriber_topic", scan_subscriber_topic)) {
+		ROS_ERROR("Could not find scan_subscriber_topic parameter!");
+		return false;
+	}
+
+	if (!nodeHandle_.getParam("/husky_highlevel_controller_ex_5/scan_subscriber_queue_size", scan_subscriber_queue_size)) {
+		ROS_ERROR("Could not find scan_subscriber_queue_size parameter!");
+		return false;
+	}
+
+	return true;
+
 }
 
 
@@ -54,6 +70,12 @@ void HuskyHighlevelControllerEx5::scanCallback(const sensor_msgs::LaserScan &sca
 	vel_msg_.linear.x = xPosPillar > 0.4 ? xPosPillar * p_gain_vel : 1.0;  
 	vel_msg_.angular.z = xPosPillar > 0.4 ? (- yPosPillar * p_gain_ang) : 0;
 
+	// Ex-5 Added: if start_move flag is false then all the velocity should be zero
+	if (!start_move) {
+		vel_msg_.linear.x = 0.0;
+		vel_msg_.angular.z = 0.0;
+	}
+
 	cmd_pub_.publish(vel_msg_);
 
 
@@ -67,6 +89,19 @@ void HuskyHighlevelControllerEx5::scanCallback(const sensor_msgs::LaserScan &sca
 
 	ROS_INFO_STREAM("vel_msg_.linear.x : " << vel_msg_.linear.x);
 	ROS_INFO_STREAM("vel_msg_.angular.z : " << vel_msg_.angular.z);
+}
+
+bool HuskyHighlevelControllerEx5::serviceCallback(std_srvs::SetBool::Request & request, std_srvs::SetBool::Response & response) {
+
+	if (request.data) start_move = true;
+	else start_move = false;
+	response.success = true;
+
+	ROS_INFO("request: %i", request.data);
+	ROS_INFO("sending back response: [%i]", response.success);
+
+	return true;
+	
 }
 
 

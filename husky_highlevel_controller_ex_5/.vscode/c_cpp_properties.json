@@ -11,10 +11,11 @@
                 "/home/honda/catkin_ws/src/husky_highlevel_controller/include",
                 "/home/honda/catkin_ws/src/husky_highlevel_controller_ex_3/include",
                 "/home/honda/catkin_ws/src/husky_highlevel_controller_ex_4/include",
-                "/home/honda/catkin_ws/src/ima/include",
+                "/home/honda/catkin_ws/src/husky_highlevel_controller_ex_5/include",
                 "/home/honda/catkin_ws/src/husky_highlevel_controller_new/include",
-                "/home/honda/catkin_ws/src/mkz_common/include",
+                "/home/honda/catkin_ws/src/ima/include",
                 "/home/honda/catkin_ws/src/novatel_gps_driver/novatel_gps_driver/include",
+                "/home/honda/catkin_ws/src/mkz_common/include",
                 "/home/honda/catkin_ws/src/ros_best_practices/ros_package_template/include",
                 "/home/honda/catkin_ws/src/velodyne_height_map/include",
                 "/usr/include"
