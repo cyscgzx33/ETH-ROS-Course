@@ -13,3 +13,8 @@ ETH ROS exercise solutions &amp; course materials
 
 ## Exercise-5
 - Please follow the package "husky_highlevel_controller_ex_5".
+
+# Another Test:
+## git config test, --local
+- user.name = "cyscgzx33";
+- user.email = "chenyus@umich.edu"
