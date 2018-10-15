@@ -5,16 +5,16 @@ namespace husky_highlevel_controller_ex_3 {
 HuskyHighlevelControllerEx3::HuskyHighlevelControllerEx3(ros::NodeHandle& nodeHandle) :
   nodeHandle_(nodeHandle) {
   	// to obtain the params by calling getParam()
-  	nodeHandle.getParam("/husky_highlevel_controller_ex_3/scan_subscriber_topic", scan_subscriber_topic);
-  	nodeHandle.getParam("/husky_highlevel_controller_ex_3/scan_subscriber_queue_size", scan_subscriber_queue_size);
-  	nodeHandle.getParam("/husky_highlevel_controller_ex_3/cmd_pub_topic", cmd_pub_topic);
-   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/cmd_pub_queue_size", cmd_pub_queue_size);
-   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/visualization_pub_queue_size", visualization_pub_queue_size);
-   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/visualization_pub_topic", visualization_pub_topic);
-   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/red_value", red_value);
-   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/green_value", green_value);
-   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/blue_value", blue_value);
-   	nodeHandle.getParam("/husky_highlevel_controller_ex_3/zPosPillar", zPosPillar);
+  	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/scan_subscriber_topic", scan_subscriber_topic);
+  	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/scan_subscriber_queue_size", scan_subscriber_queue_size);
+  	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/cmd_pub_topic", cmd_pub_topic);
+   	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/cmd_pub_queue_size", cmd_pub_queue_size);
+   	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/visualization_pub_queue_size", visualization_pub_queue_size);
+   	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/visualization_pub_topic", visualization_pub_topic);
+   	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/red_value", red_value);
+   	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/green_value", green_value);
+   	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/blue_value", blue_value);
+   	nodeHandle_.getParam("/husky_highlevel_controller_ex_3/zPosPillar", zPosPillar);
 
  	
  	// definity need to advertise a publisher otherwise it didn't show up at the system
@@ -24,7 +24,7 @@ HuskyHighlevelControllerEx3::HuskyHighlevelControllerEx3(ros::NodeHandle& nodeHa
 
 
 	ROS_INFO("Successfully launch node");
-    }
+}
 
 
 void HuskyHighlevelControllerEx3::scanCallback(const sensor_msgs::LaserScan &scan_msg) {
